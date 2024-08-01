@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Downloader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Video Downloader</h1>
+        <form action="/download" method="post">
+            <label for="videoUrl">Video URL:</label>
+            <input type="text" id="videoUrl" name="videoUrl" required><br><br>
+
+            <label for="downloadType">Download Type:</label>
+            <select id="downloadType" name="downloadType" required>
+                <option value="video">Video</option>
+                <option value="audio">Audio</option>
+            </select><br><br>
+
+            <div id="videoQuality" style="display:none;">
+                <label for="quality">Video Quality:</label>
+                <select id="quality" name="quality">
+                    <option value="240">240p</option>
+                    <option value="360">360p</option>
+                    <option value="480">480p</option>
+                    <option value="720">720p</option>
+                    <option value="1080">1080p</option>
+                </select><br><br>
+            </div>
+
+            <div id="audioQuality" style="display:none;">
+                <label for="quality">Audio Quality:</label>
+                <select id="quality" name="quality">
+                    <option value="128">128 kbps</option>
+                    <option value="192">192 kbps</option>
+                    <option value="256">256 kbps</option>
+                    <option value="320">320 kbps</option>
+                </select><br><br>
+            </div>
+
+            <label for="storageLocation">Storage Location:</label>
+            <select id="storageLocation" name="storageLocation" required>
+                <option value="C:\\Downloads">Default</option>
+                <option value="custom">Custom</option>
+            </select><br><br>
+
+            <div id="customPathContainer" style="display:none;">
+                <label for="customPath">Custom Path:</label>
+                <input type="text" id="customPath" name="customPath"><br><br>
+            </div>
+
+            <button type="submit">Download</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('downloadType').addEventListener('change', function() {
+            var videoQuality = document.getElementById('videoQuality');
+            var audioQuality = document.getElementById('audioQuality');
+            if (this.value === 'video') {
+                videoQuality.style.display = 'block';
+                audioQuality.style.display = 'none';
+            } else {
+                videoQuality.style.display = 'none';
+                audioQuality.style.display = 'block';
+            }
+        });
+
+        document.getElementById('storageLocation').addEventListener('change', function() {
+            var customPathContainer = document.getElementById('customPathContainer');
+            if (this.value === 'custom') {
+                customPathContainer.style.display = 'block';
+            } else {
+                customPathContainer.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
